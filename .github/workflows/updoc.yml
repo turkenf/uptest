@@ -34,13 +34,13 @@ jobs:
         id: go
         run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
       - name: Cache the Go Build Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ steps.go.outputs.cache }}
           key: ${{ runner.os }}-build-updoc-artifacts-${{ hashFiles('**/go.sum') }}
           restore-keys: ${{ runner.os }}-build-updoc-artifacts-
       - name: Cache Go Dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .work/pkg
           key: ${{ runner.os }}-updoc-pkg-${{ hashFiles('**/go.sum') }}
