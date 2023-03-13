@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: upbound/uptest/cmd/updoc
+          repository: upbound/official-provider-docs
           submodules: true
       - name: Setup Go
         uses: actions/setup-go@v2
