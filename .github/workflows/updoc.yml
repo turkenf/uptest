@@ -32,7 +32,7 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
       - name: Find the Go Build Cache
         id: go
-        run: echo "::set-output name=cache::$(go env GOCACHE)"
+        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
       - name: Cache the Go Build Cache
         uses: actions/cache@v2
         with:
