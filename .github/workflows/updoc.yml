@@ -61,4 +61,4 @@ jobs:
           ls provider/docs
           VERSION=$(echo ${{ inputs.version }} | cut -d '.' -f 1,2)
           echo "Provider: ${{ inputs.provider }}, Version: ${{ inputs.version }}"
-          go run ./cmd/main.go upload --docs-dir=provider/docs --name=${{ inputs.provider }} --version=$VERSION --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
+          echo go run ./cmd/main.go upload --docs-dir=provider/docs --name=${{ inputs.provider }} --version=$VERSION --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
