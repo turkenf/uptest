@@ -11,6 +11,9 @@ on:
         description: 'The version you would like the release to have, e.g. v0.1.0'
         required: true
         type: string
+    secrets:
+      UPBOUND_CI_PROD_BUCKET_SA:
+        required: true
 
 env:
   GO_VERSION: '1.19'
