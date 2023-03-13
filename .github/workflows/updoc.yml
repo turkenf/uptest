@@ -25,7 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: upbound/official-provider-docs
+          repository: turkenf/official-provider-docs
           submodules: true
       - name: Setup Go
         uses: actions/setup-go@v2
