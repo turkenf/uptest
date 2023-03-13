@@ -1,4 +1,5 @@
 name: Updoc
+
 on:
   workflow_call:
     inputs:
