@@ -51,6 +51,12 @@ jobs:
           repository: upbound/${{ inputs.provider }}
           ref: '${{ inputs.version }}'
           path: './provider'
+      - name: My step 2
+        run: ls -la
+      - name: My step 3
+        run: |
+          cd provider/
+          ls -la
       - name: Create Service Account File
         env:
           GAC: ${{ secrets.UPBOUND_CI_PROD_BUCKET_SA }}
