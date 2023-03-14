@@ -25,6 +25,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
+          ref: '${{ inputs.version }}'
+          path: './provider'
+  
+      # TODO(turkenf): remove once there is no private dependency (e.g. nats-proxy)
+      - name: Granting private modules access
+        run: |
+          git config --global url."https://${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/upbound".insteadOf "https://github.com/upbound"
+
+      - name: Checkout Updoc
+        uses: actions/checkout@v2
+        with:
+          repository: upbound/official-provider-docs
           submodules: true
 
       - name: Setup Go
