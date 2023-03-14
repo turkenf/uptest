@@ -25,7 +25,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: '${{ inputs.version }}'
           path: './provider'
   
       # TODO(turkenf): remove once there is no private dependency (e.g. nats-proxy)
