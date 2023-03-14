@@ -32,12 +32,6 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/upbound".insteadOf "https://github.com/upbound"
 
-      - name: Checkout Updoc
-        uses: actions/checkout@v2
-        with:
-          repository: upbound/official-provider-docs
-          submodules: true
-
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
