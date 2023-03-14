@@ -14,6 +14,8 @@ on:
     secrets:
       UPBOUND_CI_PROD_BUCKET_SA:
         required: true
+      UPBOUND_BOT_GITHUB_TOKEN:
+        required: true
 
 env:
   GO_VERSION: '1.19'
@@ -25,12 +27,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          path: './provider'
-  
-      # TODO(turkenf): remove once there is no private dependency (e.g. nats-proxy)
+          submodules: true
+          ref: '${{ inputs.version }}'
+
+      # TODO(turkenf): remove once there is no private dependency
       - name: Granting private modules access
         run: |
           git config --global url."https://${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/upbound".insteadOf "https://github.com/upbound"
+
+      - name: Checkout Updoc
+        uses: actions/checkout@v2
+        with:
+          repository: upbound/official-provider-docs
+          path: './updoc'
+          submodules: true
 
       - name: Setup Go
         uses: actions/setup-go@v2
@@ -59,7 +69,7 @@ jobs:
         run: ls -la
       - name: My step 3
         run: |
-          cd provider/
+          cd updoc/
           ls -la
 
       - name: Create Service Account File
