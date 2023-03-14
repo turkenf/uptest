@@ -38,7 +38,7 @@ jobs:
       - name: Checkout Updoc
         uses: actions/checkout@v2
         with:
-          repository: upbound/official-provider-docs
+          repository: upbound/upjet
           path: './updoc'
           submodules: true
 
