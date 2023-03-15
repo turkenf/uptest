@@ -30,18 +30,6 @@ jobs:
           submodules: true
           ref: '${{ inputs.version }}'
 
-      # TODO(turkenf): remove once there is no private dependency
-      - name: Granting private modules access
-        run: |
-          git config --global url."https://${{ secrets.UPBOUND_BOT_GITHUB_TOKEN }}:x-oauth-basic@github.com/upbound".insteadOf "https://github.com/upbound"
-
-      - name: Checkout Updoc
-        uses: actions/checkout@v2
-        with:
-          repository: upbound/upjet
-          path: './updoc'
-          submodules: true
-
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
@@ -67,10 +55,6 @@ jobs:
 
       - name: My step 2
         run: ls -la
-      - name: My step 3
-        run: |
-          cd updoc/
-          ls -la
 
       - name: Create Service Account File
         env:
@@ -83,7 +67,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
         run: |
           pwd
-          ls provider/docs
+          ls 
           VERSION=$(echo ${{ inputs.version }} | cut -d '.' -f 1,2)
           echo "Provider: ${{ inputs.provider }}, Version: ${{ inputs.version }}"
-          echo go run ./cmd/main.go upload --docs-dir=provider/docs --name=${{ inputs.provider }} --version=$VERSION --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
+          echo go run github.com/upbound/uptest/cmd/updoc@updoc upload --docs-dir=./docs --name=${{ inputs.provider }} --version=$VERSION --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
