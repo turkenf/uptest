@@ -2,19 +2,8 @@ name: Updoc
 
 on:
   workflow_call:
-    inputs:
-      provider:
-        description: 'The name of the provider, e.g. provider-aws'
-        required: true
-        type: string
-      version:
-        description: 'The version you would like the release to have, e.g. v0.1.0'
-        required: true
-        type: string
     secrets:
       UPBOUND_CI_PROD_BUCKET_SA:
-        required: true
-      UPBOUND_BOT_GITHUB_TOKEN:
         required: true
 
 env:
@@ -65,9 +54,5 @@ jobs:
       - name: Upload Docs
         env:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
-        run: |
-          pwd
-          ls 
-          VERSION=$(echo ${{ inputs.version }} | cut -d '.' -f 1,2)
-          echo "Provider: ${{ inputs.provider }}, Version: ${{ inputs.version }}"
-          go run github.com/upbound/uptest/cmd/updoc@updoc upload --help
+        run: make publish-docs
+
