@@ -55,10 +55,9 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
         run: |
-          echo "${GITHUB_REPOSITORY#*/}, ${GITHUB_REF#"refs/heads/release-"}"
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
-            echo "Publishing Docs for ${GITHUB_REPOSITORY#*/}, version=v${GITHUB_REF#"refs/heads/release-"}"
-            go run github.com/upbound/uptest/cmd/updoc@main upload --help
+            echo "Publishing Docs for ${GITHUB_REPOSITORY#*/}, v${GITHUB_REF#"refs/heads/release-"}"
+            echo go run github.com/upbound/uptest/cmd/updoc@main upload --docs-dir=./docs --name=${GITHUB_REPOSITORY#*/} --version=${GITHUB_REF#"refs/heads/release-"} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
           else
             echo "This job can only be run on release branches"
             exit 1
