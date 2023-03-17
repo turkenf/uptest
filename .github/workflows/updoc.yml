@@ -54,5 +54,5 @@ jobs:
       - name: Upload Docs
         env:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
-        run: echo "${GITHUB_REPOSITORY#*/}, ${GITHUB_REF##*/#-}"
+        run: echo "${GITHUB_REPOSITORY#*/}, ${ref#"refs/heads/release-"}"
 
