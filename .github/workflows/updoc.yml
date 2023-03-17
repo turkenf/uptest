@@ -58,7 +58,7 @@ jobs:
           echo "${GITHUB_REPOSITORY#*/}, ${GITHUB_REF#"refs/heads/release-"}"
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
             ls ./docs
-            go run github.com/upbound/uptest/cmd/updoc/main.go upload --help
+            go run upbound/uptest/cmd/updoc/main.go upload --help
           else
             echo "This job can only be run on release branches"
           fi
