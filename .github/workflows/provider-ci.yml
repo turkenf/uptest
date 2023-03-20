@@ -92,6 +92,21 @@ jobs:
           flags: unittests
           file: _output/tests/linux_amd64/coverage.txt
 
+  check-examples:
+    runs-on: ubuntu-22.04
+    needs: detect-noop
+    if: ${{ needs.detect-noop.outputs.noop != 'true' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
+      - name: Check Example Manifests
+        run: |
+          ./scripts/check-examples.py package/crds examples
+
   report-breaking-changes:
     runs-on: ubuntu-22.04
     needs: detect-noop
