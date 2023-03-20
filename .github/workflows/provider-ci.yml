@@ -76,7 +76,9 @@ jobs:
           restore-keys: ${{ runner.os }}-pkg-
 
       - name: My Step
-        run: ls -la
+        run: |
+          ls -la
+          python ./check-examples.py
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
