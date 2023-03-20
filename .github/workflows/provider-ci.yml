@@ -78,7 +78,7 @@ jobs:
       - name: My Step
         run: |
           ls -la
-          python ./check-examples.py
+          python ./scripts/check-examples.py
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
