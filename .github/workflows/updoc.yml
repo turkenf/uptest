@@ -55,7 +55,7 @@ jobs:
       - name: Upload Docs
         env:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
-          PROVIDER_NAME: ${GITHUB_REPOSITORY#*/}
+          PROVIDER_NAME: "${GITHUB_REPOSITORY#*/}"
           VER_MAJOR_MINOR: v${GITHUB_REF#"refs/heads/release-"}
         run: |
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
