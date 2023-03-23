@@ -55,9 +55,11 @@ jobs:
       - name: Upload Docs
         env:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
+          PROVIDER_NAME: ${GITHUB_REPOSITORY#*/}
+          VER_MAJOR_MINOR: v${GITHUB_REF#"refs/heads/release-"}
         run: |
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
-            echo "Publishing Docs for ${GITHUB_REPOSITORY#*/}, v${GITHUB_REF#"refs/heads/release-"}"
+            echo "Publishing Docs for ${PROVIDER_NAME}, v${GITHUB_REF#"refs/heads/release-"}"
             echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=./docs --name=${GITHUB_REPOSITORY#*/} --version=v${GITHUB_REF#"refs/heads/release-"} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
           else
             echo "This job can only be run on release branches"
