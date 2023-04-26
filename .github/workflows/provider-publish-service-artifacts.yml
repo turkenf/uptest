@@ -24,8 +24,8 @@ env:
   # credentials have been provided before trying to run steps that need them.
   UPBOUND_MARKETPLACE_PUSH_ROBOT_USR: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
   
-  jobs:  
-    publish-service-artifacts:
+jobs:  
+  publish-service-artifacts:
     if: ${{ github.actor == 'OWNER' || github.actor == 'turkenf' || contains(github.event.repository.collaborators, github.actor) }}
     runs-on: ubuntu-22.04
 
