@@ -106,4 +106,4 @@ jobs:
 
       - name: Publish Artifacts
         run: |
-          echo make -j $num_packages SUBPACKAGES="${{ inputs.subpackages }}" BRANCH_NAME=main publish
+          echo make -j 3 SUBPACKAGES="${{ inputs.subpackages }}" BRANCH_NAME=main publish
