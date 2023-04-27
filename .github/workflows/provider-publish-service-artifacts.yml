@@ -84,7 +84,7 @@ jobs:
         run: make vendor vendor.check
         
       - name: MYSTEP
-        run: echo ${{ length(subpackages) }}
+        run: echo length(${{ inputs.subpackages }})
 
       - name: Build Artifacts
         run: echo make -j 3 SUBPACKAGES="${{ inputs.subpackages }}" build.all
