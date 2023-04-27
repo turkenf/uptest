@@ -87,6 +87,10 @@ jobs:
           elements=($(echo ${{ inputs.subpackages }} | tr ' ' '\n'))
           num_elements=${#elements[@]}
           echo "The number of elements in subpackages input is $num_elements"
+          if [ $num_elements -gt 20 ]; then
+            num_elements=20
+          fi
+          echo make -j $num_elements SUBPACKAGES="${{ inputs.subpackages }}" build.all
 
       - name: Build Artifacts
         run: echo make -j 10 SUBPACKAGES="${{ inputs.subpackages }}" build.all
