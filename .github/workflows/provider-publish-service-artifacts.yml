@@ -90,6 +90,7 @@ jobs:
             num_packages=20
           fi
           echo make -j $num_packages SUBPACKAGES="${{ inputs.subpackages }}" build.all
+          echo $num_packages > num_packages.txt
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
@@ -103,4 +104,5 @@ jobs:
 
       - name: Publish Artifacts
         run: |
+          num_packages=$(cat num_packages.txt)
           echo make -j $num_packages SUBPACKAGES="${{ inputs.subpackages }}" BRANCH_NAME=main publish
