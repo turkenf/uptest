@@ -85,10 +85,12 @@ jobs:
         
       - name: MYSTEP
         run: |
-          echo "The number of elements in subpackages input is $(echo ${{ inputs.subpackages }} | tr ' ' '\n' | wc -l)"
+          elements=($(echo ${{ inputs.subpackages }} | tr ' ' '\n'))
+          num_elements=${#elements[@]}
+          echo "The number of elements in subpackages input is $num_elements"
 
       - name: Build Artifacts
-        run: echo make -j 3 SUBPACKAGES="${{ inputs.subpackages }}" build.all
+        run: echo make -j ${{ min(num_elements, 20) }} SUBPACKAGES="${{ inputs.subpackages }}" build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
