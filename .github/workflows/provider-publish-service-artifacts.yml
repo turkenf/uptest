@@ -84,7 +84,8 @@ jobs:
         run: make vendor vendor.check
         
       - name: MYSTEP
-        run: echo length(${{ inputs.subpackages }})
+        run: |
+          echo "The number of elements in subpackages input is $(echo ${{ inputs.subpackages }} | tr ' ' '\n' | wc -l)"
 
       - name: Build Artifacts
         run: echo make -j 3 SUBPACKAGES="${{ inputs.subpackages }}" build.all
