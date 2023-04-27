@@ -89,7 +89,7 @@ jobs:
           echo "The number of elements in subpackages input is $num_elements"
 
       - name: Build Artifacts
-        run: echo make -j ${{ min(split(inputs.subpackages, ' '), 20) }} SUBPACKAGES="${{ inputs.subpackages }}" build.all
+        run: echo make -j 10 SUBPACKAGES="${{ inputs.subpackages }}" build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
