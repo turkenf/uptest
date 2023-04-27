@@ -83,17 +83,16 @@ jobs:
         run: make vendor vendor.check
         
       - name: MYSTEP
-        run: |
-          elements=($(echo ${{ inputs.subpackages }} | tr ' ' '\n'))
-          num_elements=${#elements[@]}
-          echo "The number of elements in subpackages input is $num_elements"
-          if [ $num_elements -gt 20 ]; then
-            num_elements=20
-          fi
-          echo make -j $num_elements SUBPACKAGES="${{ inputs.subpackages }}" build.all
+
 
       - name: Build Artifacts
-        run: echo make -j 10 SUBPACKAGES="${{ inputs.subpackages }}" build.all
+        run: |
+          packages=($(echo ${{ inputs.subpackages }} | tr ' ' '\n'))
+          num_packages=${#packages[@]}
+          if [ $num_packages -gt 20 ]; then
+            num_packages=20
+          fi
+          echo make -j $num_packages SUBPACKAGES="${{ inputs.subpackages }}" build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
@@ -106,4 +105,5 @@ jobs:
           path: _output/**
 
       - name: Publish Artifacts
-        run: echo make -j 3 SUBPACKAGES="${{ inputs.subpackages }}" BRANCH_NAME=main publish
+        run: |
+          echo make -j $num_packages SUBPACKAGES="${{ inputs.subpackages }}" BRANCH_NAME=main publish
