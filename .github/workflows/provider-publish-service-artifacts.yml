@@ -26,7 +26,6 @@ env:
   
 jobs:  
   publish-service-artifacts:
-    if: ${{ github.actor == 'OWNER' || github.actor == 'turkenf' || contains(github.event.repository.collaborators, github.actor) }}
     runs-on: ubuntu-22.04
 
     steps:
