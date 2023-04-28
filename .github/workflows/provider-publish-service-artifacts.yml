@@ -83,7 +83,6 @@ jobs:
         run: make vendor vendor.check
 
       - name: Build Artifacts
-        id: build_artifacts
         run: |
           packages=($(echo ${{ inputs.subpackages }} | tr ' ' '\n'))
           num_packages=${#packages[@]}
