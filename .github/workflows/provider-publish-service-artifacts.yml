@@ -5,6 +5,7 @@ on:
     inputs:
       subpackages:
         description: 'Subpackages to be built individually (e.g. monolith config ec2)'
+        default: 'monolith'
         required: true
         type: string
     secrets:
