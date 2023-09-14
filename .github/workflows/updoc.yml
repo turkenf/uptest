@@ -62,7 +62,7 @@ jobs:
           FAMILYPACKS: ${{ inputs.familypacks }}
         run: |
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
-            for f in $SUBPACKAGES; do
+            for f in $FAMILYPACKS; do
               echo "Publishing Docs for ${{ env.PROVIDER_NAME }}, ${{ env.VER_MAJOR_MINOR }}"
               echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=./docs --name=${{ env.PROVIDER_NAME }} --version=${{ env.VER_MAJOR_MINOR }} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
               echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=./docs --name=${{ env.PROVIDER_NAME }}-$f --version=${{ env.VER_MAJOR_MINOR }} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
