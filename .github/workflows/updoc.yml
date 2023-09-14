@@ -3,9 +3,9 @@ name: Updoc
 on:
   workflow_call:
     inputs:
-      familypacks:
-        description: 'Family packages to be published(except monolith)'
-        default: ''
+      subpackages:
+        description: 'Subpackages to be published individually (e.g. monolith config ec2)'
+        default: 'monolith'
         required: false
         type: string
     secrets:
@@ -59,13 +59,16 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
           PROVIDER_NAME: ${GITHUB_REPOSITORY#*/}
           VER_MAJOR_MINOR: v${GITHUB_REF#"refs/heads/release-"}
-          FAMILYPACKS: ${{ inputs.familypacks }}
+          SUBPACKAGES: ${{ inputs.subpackages }}
         run: |
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
-            for f in $FAMILYPACKS; do
-              echo "Publishing Docs for ${{ env.PROVIDER_NAME }}, ${{ env.VER_MAJOR_MINOR }}"
-              echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=./docs --name=${{ env.PROVIDER_NAME }} --version=${{ env.VER_MAJOR_MINOR }} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
-              echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=./docs --name=${{ env.PROVIDER_NAME }}-$f --version=${{ env.VER_MAJOR_MINOR }} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
+            for s in $SUBPACKAGES; do
+              FAMILY_PROVIDER_NAME="${{ env.PROVIDER_NAME }}-$s"
+                if [ $s == 'monolith' ]; then
+                  FAMILY_PROVIDER_NAME="${{ env.PROVIDER_NAME }}"
+                fi
+                echo "Publishing Docs for $FAMILY_PROVIDER_NAME, ${{ env.VER_MAJOR_MINOR }}"
+                echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=./docs --name=$FAMILY_PROVIDER_NAME --version=${{ env.VER_MAJOR_MINOR }} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
             done
           else
             echo "This job can only be run on release branches"
