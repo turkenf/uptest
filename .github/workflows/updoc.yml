@@ -63,7 +63,7 @@ jobs:
                   PROVIDER_PACKAGE_NAME="${{ env.PROVIDER_NAME }}"
                   DOCS_DIR="./docs/monolith"
                 elif [ $s == 'config' ]; then
-                  PROVIDER_PACKAGE_NAME="provider-family-${env.PROVIDER_NAME#*-}"
+                  PROVIDER_PACKAGE_NAME="provider-family-${${{ env.PROVIDER_NAME }}#*-}"
                   DOCS_DIR="./docs/family"
                 fi
                 echo "Publishing Docs for $PROVIDER_PACKAGE_NAME, ${{ env.VER_MAJOR_MINOR }} from $DOCS_DIR"
