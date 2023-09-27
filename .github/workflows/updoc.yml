@@ -66,7 +66,7 @@ jobs:
                   PROVIDER_PACKAGE_NAME="provider-family-${GITHUB_REPOSITORY#*-}"
                   DOCS_DIR="./docs/family"
                 fi
-                echo "Publishing Docs for $PROVIDER_PACKAGE_NAME, ${{ env.VER_MAJOR_MINOR }} from $DOCS_DIR"
+                echo "Publishing Docs for $PROVIDER_PACKAGE_NAME, ${{ env.VER_MAJOR_MINOR }} from $DOCS_DIR, ${GITHUB_REPOSITORY}"
                 echo go run github.com/upbound/uptest/cmd/updoc@${{ env.UPTEST_VERSION }} upload --docs-dir=“${DOCS_DIR}” --name=“${PROVIDER_PACKAGE_NAME}” --version=${{ env.VER_MAJOR_MINOR }} --bucket-name=bucket-marketplace-docs-production --cdn-domain=https://user-content.upbound.io
             done
           else
