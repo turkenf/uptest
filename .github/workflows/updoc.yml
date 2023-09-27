@@ -3,8 +3,8 @@ name: Updoc
 on:
   workflow_call:
     inputs:
-      publish-pack:
-        description: 'Packages to be published on Marketplace, e.g., monolith config'
+      providers:
+        description: 'Family provider names for which to publish the docs, e.g., "monolith config". The provider names should be space-delimited.'
         default: 'monolith'
         required: false
         type: string
@@ -13,8 +13,8 @@ on:
         required: true
 
 env:
-  GO_VERSION: '1.19'
-  UPTEST_VERSION: 'main'
+  GO_VERSION: "1.19"
+  UPTEST_VERSION: "83bd901"
 
 jobs:
   publish-docs:
@@ -59,7 +59,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
           PROVIDER_NAME: ${GITHUB_REPOSITORY#*/}
           VER_MAJOR_MINOR: v${GITHUB_REF#"refs/heads/release-"}
-          SUBPACKAGES: ${{ inputs.publish-pack }}
+          SUBPACKAGES: ${{ inputs.providers }}
         run: |
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
             for s in $SUBPACKAGES; do
@@ -79,4 +79,3 @@ jobs:
             echo "This job can only be run on release branches"
             exit 1
           fi
-
