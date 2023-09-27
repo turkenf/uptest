@@ -5,7 +5,8 @@ on:
     inputs:
       publish-pack:
         description: 'Packages to be published on Marketplace, e.g., monolith config'
-        required: true
+        default: 'monolith'
+        required: false
         type: string
     secrets:
       UPBOUND_CI_PROD_BUCKET_SA:
