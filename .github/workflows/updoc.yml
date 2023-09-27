@@ -2,6 +2,11 @@ name: Updoc
 
 on:
   workflow_call:
+    inputs:
+      publish-pack:
+        description: 'Packages to be published on Marketplace, e.g., monolith config'
+        required: true
+        type: string
     secrets:
       UPBOUND_CI_PROD_BUCKET_SA:
         required: true
@@ -53,7 +58,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: sa.json
           PROVIDER_NAME: ${GITHUB_REPOSITORY#*/}
           VER_MAJOR_MINOR: v${GITHUB_REF#"refs/heads/release-"}
-          SUBPACKAGES: "config monolith"
+          SUBPACKAGES: ${{ inputs.publish-pack }}
         run: |
           if [[ "${GITHUB_REF##*/}" == release-* ]]; then
             for s in $SUBPACKAGES; do
